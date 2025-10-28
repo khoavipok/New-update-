@@ -1,0 +1,111 @@
+-- 📜 NotificationUI.lua (Vertical List Version)
+-- Hỗ trợ hiển thị nhiều dòng message theo chiều dọc
+
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+local cfg = _G.NotificationConfig or {}
+
+-- Tính chiều cao tự động dựa theo số dòng
+local lineCount = #cfg.Messages or 1
+local totalHeight = 60 + (cfg.LineSpacing or 28) * lineCount
+
+-- Tạo ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "VerticalNotice"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.Parent = PlayerGui
+
+-- Tạo Frame chính
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, totalHeight)
+frame.Position = cfg.Position or UDim2.new(0.35, 0, 0.3, 0)
+frame.BackgroundColor3 = cfg.FrameColor or Color3.fromRGB(0, 0, 0)
+frame.BackgroundTransparency = 1
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Bo góc + viền
+local uiCorner = Instance.new("UICorner", frame)
+uiCorner.CornerRadius = UDim.new(0, cfg.RoundedCorner or 10)
+
+local uiStroke = Instance.new("UIStroke", frame)
+uiStroke.Thickness = 1.5
+uiStroke.Color = cfg.StrokeColor or Color3.fromRGB(255, 255, 255)
+uiStroke.Transparency = cfg.StrokeTransparency or 0.5
+
+-- Tiêu đề
+local title = Instance.new("TextLabel")
+title.Text = cfg.Title or "Danh sách"
+title.Size = UDim2.new(1, -40, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 5)
+title.BackgroundTransparency = 1
+title.TextColor3 = cfg.TitleColor or Color3.fromRGB(255, 255, 255)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = frame
+
+-- Nút X để đóng
+local closeButton = Instance.new("TextButton")
+closeButton.Text = "X"
+closeButton.Size = UDim2.new(0, 25, 0, 25)
+closeButton.Position = UDim2.new(1, -30, 0, 5)
+closeButton.BackgroundColor3 = cfg.CloseColor or Color3.fromRGB(255, 60, 60)
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Font = Enum.Font.GothamBold
+closeButton.TextScaled = true
+closeButton.Parent = frame
+
+local closeCorner = Instance.new("UICorner", closeButton)
+closeCorner.CornerRadius = UDim.new(1, 0)
+
+-- Tạo vùng chứa các dòng message
+local listFrame = Instance.new("Frame")
+listFrame.Size = UDim2.new(1, -20, 1, -45)
+listFrame.Position = UDim2.new(0, 10, 0, 40)
+listFrame.BackgroundTransparency = 1
+listFrame.Parent = frame
+
+local uiList = Instance.new("UIListLayout", listFrame)
+uiList.Padding = UDim.new(0, 5)
+uiList.FillDirection = Enum.FillDirection.Vertical
+uiList.HorizontalAlignment = Enum.HorizontalAlignment.Left
+uiList.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- Tạo từng dòng message
+for i, text in ipairs(cfg.Messages or {}) do
+	local line = Instance.new("TextLabel")
+	line.Text = text
+	line.Size = UDim2.new(1, 0, 0, cfg.LineSpacing or 28)
+	line.BackgroundTransparency = 1
+	line.TextColor3 = cfg.MessageColor or Color3.fromRGB(200, 200, 200)
+	line.TextScaled = true
+	line.Font = Enum.Font.Gotham
+	line.TextXAlignment = Enum.TextXAlignment.Left
+	line.Parent = listFrame
+end
+
+-- Hiệu ứng fade-in
+TweenService:Create(
+	frame,
+	TweenInfo.new(cfg.FadeInTime or 0.4, Enum.EasingStyle.Sine, Enum.EasingDirection.Out),
+	{ BackgroundTransparency = cfg.FrameTransparency or 0.35 }
+):Play()
+
+-- Nút đóng
+closeButton.MouseButton1Click:Connect(function()
+	local fadeOut = TweenService:Create(
+		frame,
+		TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.In),
+		{ BackgroundTransparency = 1 }
+	)
+	fadeOut:Play()
+	fadeOut.Completed:Connect(function()
+		frame:Destroy()
+	end)
+end)
