@@ -1,5 +1,3 @@
--- 📜 NotificationUI.lua (Vertical List Version)
--- Hỗ trợ hiển thị nhiều dòng message theo chiều dọc
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
