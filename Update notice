@@ -8,4 +8,4 @@ _G.NotificationConfig = {
     }
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/khoavipok/New-update-/refs/heads/main/Notification%20UI?token=GHSAT0AAAAAADK2UKIRVSGN3Z2VCYSVJTBY2IAZUHA"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/khoavipok/New-update-/refs/heads/main/Notification%20UI"))()
