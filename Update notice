@@ -1,10 +1,10 @@
 _G.NotificationConfig = {
-    Title = "🔥 NEW update",
+    Title = "🔥 NEW update Halloween 🧟",
     Messages = {
-        "✅ Add Auto Event shiny card pack",
-        "✅ Auto Event assault brainrots",
-        "✅ Auto brainrot deliver",
-        "🛠️ in progress fix TP brainrot",
+        "✅ Auto Event Candy Brainrot Crate",
+        "✅ Auto Event Halloween Card Pack ",
+        "✅ Auto Event Candy Spooky Crate",
+        "✅ fix auto Buy Seeds",
     }
 }
 
