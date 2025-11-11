@@ -1,10 +1,8 @@
 _G.NotificationConfig = {
-    Title = "🔥 NEW update Halloween 🧟",
+    Title = "🔥 NEW update Mutation ✨",
     Messages = {
-        "✅ Auto Event Candy Brainrot Crate",
-        "✅ Auto Event Halloween Card Pack ",
-        "✅ Auto Event Candy Spooky Crate",
-        "✅ fix auto Buy Seeds",
+        "✅ Auto farm XP",
+        "✅ Auto Event Mutation",
     }
 }
 
