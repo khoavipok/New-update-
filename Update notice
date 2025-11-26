@@ -1,8 +1,8 @@
 _G.NotificationConfig = {
     Title = "🔥 NEW update Mutation ✨",
     Messages = {
-        "✅ Auto farm XP",
-        "✅ Auto Event Mutation",
+        "✅ fix library UI",
+        "fix tp Mutation",
     }
 }
 
